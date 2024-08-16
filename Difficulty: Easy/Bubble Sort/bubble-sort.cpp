@@ -20,12 +20,20 @@ void swap(int *xp, int *yp) {
 class Solution {
   public:
     // Function to sort the array using bubble sort algorithm.
+    void printArray(int a[],int n){
+        for(int i = 0;i < n ;i++){
+            cout<<a[i]<<" ";
+        }
+    }
+    
+    
+    
     void bubbleSort(int arr[], int n) {
         // Your code here
+            if(n == 1) return;
         
-        for(int i = 0;i < n ;i++){
             bool flag = false;
-            for(int j = 0;j < n-i-1;j++){
+            for(int j = 0;j <= n-2;j++){
                 if(arr[j] > arr[j+1]){
                     flag = true;
                     swap(arr[j],arr[j+1]);
@@ -33,11 +41,12 @@ class Solution {
             }
             
             if(!flag) return;
-        }
+           
         
-        for(int i  = 0;i < n;i++){
-            cout<<arr[i]<<" ";
-        }
+        bubbleSort(arr,n-1);
+       
+        
+       
     }
 };
 
