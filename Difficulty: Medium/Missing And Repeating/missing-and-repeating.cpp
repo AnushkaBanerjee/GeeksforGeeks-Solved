@@ -6,23 +6,28 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
 public:
-    vector<int> findTwoElement(vector<int> arr, int n) {
+    vector<int> findTwoElement(vector<int> arr, int N) {
         // code here
-        vector<int>hash(n+1,0);
-        //update the hash array
+        long long n = N;
+        long long SN = (n*(n+1))/2;
+        long long S2N =(n*((n+1)*(2*n+1)))/6;
+        long long S = 0,S2 = 0;
         for(int i = 0;i < n;i++){
-            hash[arr[i]]++;
+            S+= (long long)arr[i];
+            S2+= (long long)arr[i]*(long long)arr[i];
         }
+        //val1 =  S-SN , val2 = S2 - S2N
+        long long val1 = S-SN;
+        long long val2 = S2 - S2N;
         
-        //check for missing and repeating element in the hash array
-        int repeating  = -1,missing = -1;
-        for(int i = 1;i <= n;i++){
-            if(hash[i] == 0) missing = i;
-            else if(hash[i] == 2) repeating = i;
-            
-            if(repeating != -1 && missing != -1) break;
-        }
-        return {repeating,missing};
+        //find x+y
+        val2 = val2/val1;
+        
+        long long x = (val1 + val2)/2;
+        long long y = x - val1;
+        
+        return {(int)x,(int)y};
+        
     }
 };
 
