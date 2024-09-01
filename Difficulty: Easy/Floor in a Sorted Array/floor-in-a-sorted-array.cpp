@@ -9,22 +9,29 @@ class Solution {
     // Function to find floor of x
     // n: size of vector
     // x: element whose floor is to find
-    int bs(vector<long long> &v, long long n, long long x){
-        long long lo = 0,hi = n - 1,ans = -1;
-        while(lo <= hi){
-            long long mid = lo + (hi-lo)/2;
-            if(v[mid] <= x) {
-                ans= mid;
-                lo = mid+1;
-            }
-            else hi = mid-1;
+    int upperBound(vector<long long> &arr,  long long n,long long x) {
+    long long low = 0, high = n - 1;
+    int ans = -1;
+
+    while (low <= high) {
+        long long mid = (low + high) / 2;
+        // maybe an answer
+        if (arr[mid] <= x) {
+            ans = mid;
+            low = mid + 1; // look on the right
+           
         }
-        return ans;
+        else {
+             //look for smaller index on the left
+            high = mid - 1;
+        }
     }
+    return ans;
+}
     int findFloor(vector<long long> &v, long long n, long long x) {
 
         // Your code here
-        int idx = bs(v,n,x);
+        int idx = upperBound(v,n,x);
         return idx;
     }
 };
