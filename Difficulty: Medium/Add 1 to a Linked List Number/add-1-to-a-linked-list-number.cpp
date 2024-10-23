@@ -43,24 +43,47 @@ struct Node
 
 class Solution {
   public:
-    int addHelper(Node* temp){
-        if(temp == NULL) return 1;
-        int carry = addHelper(temp->next);
-        temp->data += carry;
-        if(temp->data < 10) return 0;
-        temp->data = 0;
-        return 1;
+    Node* reverse(Node* head){
+        if(head == nullptr || head->next == nullptr) return head;
+        Node* temp = head;
+        Node* prevPtr = nullptr;
+        
+        while(temp){
+            Node* nextPtr = temp->next;
+            temp->next = prevPtr;
+            prevPtr = temp;
+            temp = nextPtr;
+        }
+       return prevPtr;
+        
     }
     Node* addOne(Node* head) {
         // Your Code here
         // return head of list after adding one
-        int carry = addHelper(head);
-        if(carry == 1){
-            Node* newNode = new Node(1);
-            newNode->next = head;
-            head = newNode;
+        Node* reversedHead = reverse(head);
+        Node* temp = reversedHead;
+        int carry = 1;
+        while(temp){
+           if(temp->data + carry < 10){ 
+                temp->data = temp->data+carry;
+                carry = 0;
+                break;
+           }
+           else {
+               temp->data = 0;
+               carry = 1;
+               temp = temp->next;
+           }
         }
+        if(carry == 1){
+            Node* newHead = reverse(reversedHead);
+            Node* newNode = new Node(1);
+            newNode->next = newHead;
+            return newNode;
+        }
+        head = reverse(reversedHead);
         return head;
+        
     }
 };
 
