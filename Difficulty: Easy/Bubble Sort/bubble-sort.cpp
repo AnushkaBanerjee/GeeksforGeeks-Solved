@@ -20,33 +20,23 @@ void swap(int *xp, int *yp) {
 class Solution {
   public:
     // Function to sort the array using bubble sort algorithm.
-    void printArray(int a[],int n){
-        for(int i = 0;i < n ;i++){
-            cout<<a[i]<<" ";
-        }
+    void swap(int &num1,int &num2){
+        num1 = num1 + num2;
+        num2 = num1 - num2;
+        num1 = num1 - num2;
     }
-    
-    
-    
     void bubbleSort(int arr[], int n) {
         // Your code here
-            if(n == 1) return;
-        
-            bool flag = false;
-            for(int j = 0;j <= n-2;j++){
-                if(arr[j] > arr[j+1]){
-                    flag = true;
+        bool flag = false;
+        for(int i = 0;i < n-1;i++){
+            for(int j = 0; j < n-1-i;j++){
+                if(arr[j] > arr[j+1]){ 
                     swap(arr[j],arr[j+1]);
+                    flag = true;
                 }
             }
-            
-            if(!flag) return;
-           
-        
-        bubbleSort(arr,n-1);
-       
-        
-       
+            if (flag == false) break;
+        }
     }
 };
 
@@ -78,7 +68,9 @@ int main() {
 
         ob.bubbleSort(arr, n);
         printArray(arr, n);
-    }
+    
+cout << "~" << "\n";
+}
     return 0;
 }
 // } Driver Code Ends
