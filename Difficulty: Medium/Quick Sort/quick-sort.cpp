@@ -20,14 +20,12 @@ class Solution
     void quickSort(int arr[], int low, int high)
     {
         // code here
-        //check whether range > 1
         if(low < high){
+            //find the pivot index
             int pIndex = partition(arr,low,high);
-            
-            //left Sub array
+            //sort the individual left part of the pivot
             quickSort(arr,low,pIndex-1);
-            
-            //right Sub array
+            //sort the individual right part of the pivot
             quickSort(arr,pIndex+1,high);
         }
     }
@@ -37,27 +35,28 @@ class Solution
     {
        // Your code here
        int pivot = arr[low];
-       
        int i = low;
        int j = high;
-       
-       
-       
        while(i < j){
-           while( arr[i] <= pivot && i < high){
+           //check smaller elements
+           while(arr[i] <= pivot && i < high){
                i++;
            }
-           
-           
            while(arr[j] > pivot && j > low ){
                j--;
            }
+           if(i < j){
+               int temp = arr[i];
+               arr[i] = arr[j];
+               arr[j] = temp;
+           }
            
-           if(i < j) swap(arr[i],arr[j]);
        }
-       
-       swap(arr[low] , arr[j]);
-       return j;
+       //swap pivot with j(since j stands at the unallowed region)
+        int temp = arr[j];
+        arr[j] = arr[low];
+        arr[low] = temp;
+        return j;
     }
 };
 
@@ -74,7 +73,9 @@ int main()
       Solution ob;
     ob.quickSort(arr, 0, n-1);
     printArray(arr, n);
-    }
+    
+cout << "~" << "\n";
+}
     return 0;
 }
 // } Driver Code Ends
